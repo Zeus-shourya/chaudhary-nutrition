@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shop all formulas — Chaudhary Nutrition</title>
+<meta name="description" content="Shop 100% herbal Ayurvedic formulas for skin, hair, women's and men's health, baby care, weight balance and everyday wellness.">
+<meta name="theme-color" content="#F8FFF4">
+<link rel="icon" type="image/png" href="assets/img/brand/favicon.png">
+<link rel="apple-touch-icon" href="assets/img/brand/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/site.css?v=1">
+</head>
+<body data-page="shop">
+<a class="skip" href="#main">Skip to content</a>
+<div id="cn-top"></div>
+
+<main id="main">
+  <section class="wrap phead">
+    <nav class="phead__crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="shop.html">Shop</a><span aria-hidden="true" id="crumbSep" hidden>/</span><span id="crumb"></span></nav>
+    <div class="phead__row">
+      <div style="display:grid;gap:20px">
+        <h1 class="h1" id="shopTitle">The <em>shop</em></h1>
+        <p class="lead" id="shopBlurb">Every formula, every herb named on the label. Filter by concern, or search for an ingredient you trust.</p>
+      </div>
+      <div class="shop-art" id="shopArt" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="chips" id="chips" role="toolbar" aria-label="Filter by category"></div>
+    <div class="toolbar">
+      <div class="toolbar__l">
+        <label class="field field--search"><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg><input id="shopQ" type="search" placeholder="Search herbs, concerns, products" aria-label="Search in shop"></label>
+        <label class="toggle"><input type="checkbox" id="fKits"> Kits only</label>
+        <label class="toggle"><input type="checkbox" id="fSale"> On sale</label>
+      </div>
+      <div class="toolbar__r">
+        <span class="phead__count" id="shopCount" aria-live="polite"></span>
+        <label class="field"><span class="sr-only">Sort by</span>
+          <select id="sort">
+            <option value="featured">Featured</option>
+            <option value="new">Newest</option>
+            <option value="low">Price: low to high</option>
+            <option value="high">Price: high to low</option>
+            <option value="save">Biggest savings</option>
+            <option value="az">A – Z</option>
+          </select>
+        </label>
+      </div>
+    </div>
+    <div class="pgrid" id="grid"></div>
+    <div class="shop-more" id="more"></div>
+  </div>
+</main>
+
+<div id="cn-foot"></div>
+<script src="assets/js/config.js?v=1"></script>
+<script src="assets/js/catalog.js?v=1"></script>
+<script src="assets/js/site.js?v=1"></script>
+<script src="assets/js/shop.js?v=1"></script>
+</body>
+</html>

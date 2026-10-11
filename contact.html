@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contact — Chaudhary Nutrition</title>
+<meta name="description" content="Visit Chaudhary Nutrition in Sector 68, Mohali, or reach us on WhatsApp +91 95885 09279. Open Monday to Sunday, 10 am to 8 pm.">
+<meta name="theme-color" content="#F8FFF4">
+<link rel="icon" type="image/png" href="assets/img/brand/favicon.png">
+<link rel="apple-touch-icon" href="assets/img/brand/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/site.css?v=1">
+</head>
+<body data-page="contact">
+<a class="skip" href="#main">Skip to content</a>
+<div id="cn-top"></div>
+
+<main id="main">
+  <section class="wrap phead">
+    <nav class="phead__crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Contact</span></nav>
+    <div class="phead__row">
+      <div style="display:grid;gap:20px">
+        <p class="eyebrow">We're here to help</p>
+        <h1 class="display" data-split>Let's <em>talk</em></h1>
+      </div>
+      <p class="lead">Questions about a formula, your order or a consultation? Message us on WhatsApp, call, or visit the store in Mohali.</p>
+    </div>
+  </section>
+
+  <section class="sec--tight" style="padding-top:0">
+    <div class="wrap cgrid" id="cards"></div>
+  </section>
+
+  <section class="sec" style="padding-top:clamp(28px,4vw,56px)">
+    <div class="wrap story" style="align-items:stretch">
+      <div class="map rv"><iframe id="map" title="Chaudhary Nutrition on Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      <div class="rv" style="--d:.1s;display:grid;gap:22px;align-content:start">
+        <p class="eyebrow">Send a message</p>
+        <h2 class="h2" data-split>Write to <em>us</em></h2>
+        <p class="muted">Your message opens in WhatsApp, ready to send — nothing is stored on this site.</p>
+        <form class="form" id="form">
+          <div class="row2">
+            <label>Your name<input name="name" required autocomplete="name"></label>
+            <label>Phone<input name="phone" type="tel" autocomplete="tel" inputmode="tel"></label>
+          </div>
+          <label>Topic
+            <select name="topic">
+              <option>A product question</option>
+              <option>My order</option>
+              <option>Book a nutrition consultation</option>
+              <option>Luxury Salon appointment</option>
+              <option>Something else</option>
+            </select>
+          </label>
+          <label>Message<textarea name="msg" required placeholder="How can we help?"></textarea></label>
+          <button class="btn btn--claret" type="submit" style="justify-self:start"><svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg> Send on WhatsApp</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="cn-foot"></div>
+<script src="assets/js/config.js?v=1"></script>
+<script src="assets/js/catalog.js?v=1"></script>
+<script src="assets/js/site.js?v=1"></script>
+<script>
+  (function () {
+    var N = window.CN, C = N.C, ic = N.icon;
+    document.getElementById('cards').innerHTML =
+      '<a class="ccard ccard--navy rv" href="' + N.wa('Hi Chaudhary Nutrition!') + '" target="_blank" rel="noopener"><span class="why__icon" style="background:var(--claret);color:#fff">' + ic('wa') + '</span><h3>WhatsApp &amp; call</h3><p>' + C.phone + '<br>Fastest way to reach us — 7 days a week.</p><span class="ulink" style="color:var(--rose)">Start a chat ' + ic('arrow-ur') + '</span></a>' +
+      '<a class="ccard rv" style="--d:.06s" href="' + C.mapLink + '" target="_blank" rel="noopener"><span class="why__icon">' + ic('pin') + '</span><h3>Visit the store</h3><address>Chaudhary Nutrition<br>' + C.address.join('<br>') + '</address><span class="ulink">Get directions ' + ic('arrow-ur') + '</span></a>' +
+      '<div class="ccard ccard--rose rv" style="--d:.12s"><span class="why__icon" style="background:var(--honeydew)">' + ic('clock') + '</span><h3>Store timing</h3><p style="color:var(--navy)">' + C.hours + '</p></div>' +
+      '<a class="ccard rv" href="mailto:' + C.email + '"><span class="why__icon">' + ic('mail') + '</span><h3>Email</h3><p>' + C.email + '</p><span class="ulink">Write an email ' + ic('arrow-ur') + '</span></a>' +
+      '<a class="ccard rv" style="--d:.06s" href="' + C.instagram + '" target="_blank" rel="noopener"><span class="why__icon">' + ic('insta') + '</span><h3>Instagram</h3><p>' + C.instagramHandle + '</p><span class="ulink">Follow along ' + ic('arrow-ur') + '</span></a>' +
+      '<div class="ccard rv" style="--d:.12s"><span class="why__icon">' + ic('shield') + '</span><h3>Policies</h3><p>' + C.policies.map(function (x) { return '<a href="' + C.store + x[1] + '" style="text-decoration:underline;text-underline-offset:3px">' + x[0] + '</a>'; }).join('<br>') + '</p></div>';
+    document.getElementById('map').src = C.mapEmbed;
+    document.getElementById('form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var f = e.target;
+      var text = 'Hi Chaudhary Nutrition!\n\nTopic: ' + f.topic.value + '\nName: ' + f.name.value + (f.phone.value ? '\nPhone: ' + f.phone.value : '') + '\n\n' + f.msg.value;
+      window.open(N.wa(text), '_blank', 'noopener');
+    });
+    N.reveal(document);
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Authorised Certificates — Chaudhary Nutrition</title>
+<meta name="description" content="ISO 45001:2018 and GMP certificates held by Chaudhary Nutrition's manufacturing partner.">
+<meta name="theme-color" content="#F8FFF4">
+<link rel="icon" type="image/png" href="assets/img/brand/favicon.png">
+<link rel="apple-touch-icon" href="assets/img/brand/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/site.css?v=1">
+</head>
+<body data-page="certificates">
+<a class="skip" href="#main">Skip to content</a>
+<div id="cn-top"></div>
+
+<main id="main">
+  <section class="wrap phead">
+    <nav class="phead__crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Certificates</span></nav>
+    <div class="phead__row">
+      <div style="display:grid;gap:20px">
+        <p class="eyebrow">Quality you can verify</p>
+        <h1 class="h1" data-split>Authorised <em>certificates</em></h1>
+      </div>
+      <p class="lead">Our formulas are produced with a manufacturing partner independently certified for quality and safety. Tap a certificate to view it in full.</p>
+    </div>
+  </section>
+
+  <section class="sec--tight" style="padding-top:0">
+    <div class="wrap certs">
+      <article class="cert rv">
+        <a class="cert__frame" href="assets/img/brand/cert-iso.jpg?v=5" data-lightbox>
+          <img src="assets/img/brand/cert-iso.jpg?v=5" alt="ISO 45001:2018 Certificate of Registration issued to Rathee Brothers" loading="lazy" width="1000" height="1414">
+          <span class="zoom"><svg class="ico" aria-hidden="true"><use href="#i-zoom"/></svg></span>
+        </a>
+        <h2 class="h3">ISO 45001:2018 <em>· Certificate of Registration</em></h2>
+        <dl>
+          <dt>Standard</dt><dd>Occupational Health &amp; Safety Management System</dd>
+          <dt>Issued to</dt><dd>Rathee Brothers, Delhi Road, Rohtak, Haryana</dd>
+          <dt>Scope</dt><dd>Manufacturing, packaging and distribution of nutrition supplements, protein powders, amino acids and dietary supplements</dd>
+          <dt>Number</dt><dd class="mono">HSE7-2M1-384551</dd>
+          <dt>Valid</dt><dd>13 Jun 2025 – 12 Jun 2028 · QAA (Quality Assurance Advisory)</dd>
+        </dl>
+      </article>
+      <article class="cert rv" style="--d:.1s">
+        <a class="cert__frame" href="assets/img/brand/cert-gmp.jpg?v=5" data-lightbox style="background:var(--mint)">
+          <img src="assets/img/brand/cert-gmp.jpg?v=5" alt="GMP Certificate of Compliance issued to Rathee Brothers" loading="lazy" width="1000" height="1414">
+          <span class="zoom"><svg class="ico" aria-hidden="true"><use href="#i-zoom"/></svg></span>
+        </a>
+        <h2 class="h3">GMP <em>· Certificate of Compliance</em></h2>
+        <dl>
+          <dt>Standard</dt><dd>Good Manufacturing Practice</dd>
+          <dt>Issued to</dt><dd>Rathee Brothers, Delhi Road, Rohtak, Haryana</dd>
+          <dt>Scope</dt><dd>Manufacturing, packaging and distribution of Ayurvedic skin care — face creams, herbal oils, face packs, cleansers and other cosmetic formulations</dd>
+          <dt>Number</dt><dd class="mono">GMP-48WQ-484571</dd>
+          <dt>Valid</dt><dd>13 Jun 2025 – 12 Jun 2028 · QAA (Quality Assurance Advisory)</dd>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap" style="display:grid;gap:36px;justify-items:center">
+      <p class="eyebrow">Our promises</p>
+      <div class="seals" id="seals"></div>
+    </div>
+  </section>
+</main>
+
+<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Certificate"><img alt="" id="lbImg"><button type="button" aria-label="Close" id="lbX"><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg></button></div>
+<div id="cn-foot"></div>
+<script src="assets/js/config.js?v=1"></script>
+<script src="assets/js/catalog.js?v=1"></script>
+<script src="assets/js/site.js?v=1"></script>
+<script>
+  (function () {
+    var N = window.CN, C = N.C, lb = document.getElementById('lb'), im = document.getElementById('lbImg');
+    document.querySelectorAll('[data-lightbox]').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.preventDefault(); im.src = a.href; im.alt = a.querySelector('img').alt; lb.classList.add('is-on'); document.getElementById('lbX').focus(); });
+    });
+    var close = function () { lb.classList.remove('is-on'); };
+    lb.addEventListener('click', function (e) { if (e.target !== im) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    document.getElementById('seals').innerHTML = C.seals.map(function (s, i) {
+      var id = 'cs' + i;
+      return '<div class="seal rv" style="--d:' + i * 0.06 + 's"><div class="seal__disc"><svg class="ring" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="' + id + '" d="M60,60 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0"/></defs>' +
+        '<circle cx="60" cy="60" r="59" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="60" cy="60" r="41.5" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 3"/>' +
+        '<text style="font:500 8.4px \'DM Mono\',monospace;letter-spacing:.18em;fill:currentColor"><textPath href="#' + id + '" textLength="312" lengthAdjust="spacing">' + N.esc(s[1].toUpperCase()) + ' • CHAUDHARY NUTRITION • </textPath></text></svg>' +
+        N.ill(s[0]) + '</div><span>' + N.esc(s[1]) + '</span></div>';
+    }).join('');
+    N.reveal(document);
+  })();
+</script>
+</body>
+</html>
