@@ -5,6 +5,7 @@
     assets/js/catalog.js        light product list (cards, filters, search)
     assets/data/p/<id>.json     per-product details (description sections)
     tools/.cache/manifest.json  image URLs for process-images.ps1
+    sitemap.xml                 via build-sitemap.ps1
 
   Re-run any time prices or products change on the store:
 
@@ -302,6 +303,7 @@ foreach ($p in $products) {
     d = ([string]$p['created_at']).Substring(0, 10)
     o = $order
     q = $kw
+    a = [int](@($p['variants'] | Where-Object { $_['available'] }).Count -gt 0)   # 1 in stock, 0 sold out (Product JSON-LD)
   }
   $order++
   [void]$catalog.Add($item)
@@ -320,3 +322,6 @@ $byCat = @{}
 foreach ($it in $catalog) { foreach ($c in $it.c) { $byCat[$c] = 1 + [int]$byCat[$c] } }
 Write-Host "catalog: $($catalog.Count) products  |  kits: $(($catalog | Where-Object { $_.k -eq 1 }).Count)"
 $byCat.GetEnumerator() | Sort-Object Name | ForEach-Object { Write-Host ("  {0,-10} {1}" -f $_.Name, $_.Value) }
+
+# sitemap.xml follows the catalogue (static pages + every product.html?p=<id>)
+& (Join-Path $PSScriptRoot 'build-sitemap.ps1')

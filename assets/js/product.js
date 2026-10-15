@@ -5,15 +5,76 @@
   var p = N.byId.get(id);
   var pdp = $('#pdp');
 
+  /* ---------- SEO head tags + structured data (live site only: the phone bundle sets CN_QS) */
+  var LIVE = window.CN_QS == null && !!C.siteUrl, BASE = C.siteUrl;
+  function headTag(tag, attr, key) {
+    var el = document.head.querySelector(tag + '[' + attr + '="' + key + '"]');
+    if (!el) { el = document.createElement(tag); el.setAttribute(attr, key); document.head.appendChild(el); }
+    return el;
+  }
+  function setMeta(attr, key, val) { headTag('meta', attr, key).setAttribute('content', val); }
+  function setLd(data) {
+    var s = document.getElementById('ld-product');
+    if (!s) { s = document.createElement('script'); s.type = 'application/ld+json'; s.id = 'ld-product'; document.head.appendChild(s); }
+    s.textContent = JSON.stringify(data);
+  }
+
   if (!p) {
+    if (LIVE) setMeta('name', 'robots', 'noindex, follow');
     pdp.style.display = 'block';
     pdp.innerHTML = '<div class="empty">' + N.ill('deco-mortar') + '<h1 class="h2">Formula <em>not found</em></h1><p class="muted">It may have been renamed or retired.</p><a class="btn btn--navy" href="shop.html">Browse all formulas</a></div>';
     return;
   }
 
   var cat = N.catOf(p.c[0]);
-  document.title = p.n + (p.s ? ' — ' + p.s : '') + ' | Chaudhary Nutrition';
-  var md = document.querySelector('meta[name="description"]'); if (md) md.content = p.n + (p.s ? ' — ' + p.s : '') + '. ' + (cat ? cat.name : '') + ' by Chaudhary Nutrition.';
+  var full = p.n + (p.s ? ' — ' + p.s : '');
+  var SUFFIX = ' | Chaudhary Nutrition';
+  var title = (p.s && full.length + SUFFIX.length <= 60 ? full : p.n) + SUFFIX;
+  var desc = full + (p.z ? ' (' + p.z + ')' : '') + ', ' + N.fmt(p.p) + '. Shop ' + (cat ? cat.name : 'herbal wellness') +
+    ' online at Chaudhary Nutrition: secure checkout or order on WhatsApp.';
+  document.title = title;
+  var md = document.querySelector('meta[name="description"]'); if (md) md.content = desc;
+
+  var url = LIVE ? BASE + 'product.html?p=' + encodeURIComponent(p.id) : '';
+  var ldNode = null, ldGraph = null;
+  if (LIVE) try {   // SEO extras must never stop the page from rendering
+    var imgUrls = []; for (var g = 1; g <= Math.max(1, p.i); g++) imgUrls.push(BASE + 'assets/img/p/' + p.id + '-' + g + '.jpg');
+    headTag('link', 'rel', 'canonical').setAttribute('href', url);
+    setMeta('property', 'og:title', title);
+    setMeta('property', 'og:description', desc);
+    setMeta('property', 'og:url', url);
+    setMeta('property', 'og:image', imgUrls[0]);
+    setMeta('property', 'og:image:alt', full);
+    setMeta('name', 'twitter:title', title);
+    setMeta('name', 'twitter:description', desc);
+    setMeta('name', 'twitter:image', imgUrls[0]);
+
+    var crumbs = [['Home', BASE], ['Shop', BASE + 'shop.html']];
+    if (cat) crumbs.push([cat.name, BASE + 'shop.html?c=' + cat.key]);
+    crumbs.push([p.n, url]);
+    ldNode = {
+      '@type': 'Product', '@id': url + '#product', name: p.n, url: url, image: imgUrls,
+      description: (p.s ? p.s + '. ' : '') + (cat ? cat.name : 'Herbal wellness') + ' from Chaudhary Nutrition.',
+      brand: { '@type': 'Brand', name: p.b || 'Chaudhary Nutrition' },
+      offers: {
+        '@type': 'Offer', url: url, price: p.p.toFixed(2), priceCurrency: 'INR',
+        // stock flag 'a' comes from build-data.ps1 (0 = sold out); catalogues built before it existed were all in stock
+        availability: 'https://schema.org/' + (p.a === 0 ? 'OutOfStock' : 'InStock'),
+        itemCondition: 'https://schema.org/NewCondition',
+        seller: { '@type': 'Organization', '@id': BASE + '#business', name: 'Chaudhary Nutrition' }
+      }
+    };
+    if (cat) ldNode.category = cat.name;
+    if (p.z) ldNode.size = p.z;
+    ldGraph = {
+      '@context': 'https://schema.org',
+      '@graph': [ldNode, {
+        '@type': 'BreadcrumbList',
+        itemListElement: crumbs.map(function (c, k) { return { '@type': 'ListItem', position: k + 1, name: c[0], item: c[1] }; })
+      }]
+    };
+    setLd(ldGraph);
+  } catch (e) { ldNode = null; }
 
   $('#crumbs').innerHTML = '<a href="index.html">Home</a><span aria-hidden="true">/</span><a href="shop.html">Shop</a>' +
     (cat ? '<span aria-hidden="true">/</span><a href="shop.html?c=' + cat.key + '">' + esc(cat.name) + '</a>' : '') +
@@ -123,6 +184,15 @@
         }).join('') + '</div>';
       }
       $('#details').innerHTML = html || '<p class="muted">Full details are on the way. Ask our team on WhatsApp for usage guidance.</p>';
+      if (ldNode) try {   // richer Product description: the store's own copy shown on this page
+        var txt = [d.tagline].concat(d.intro || [], (d.sec || []).reduce(function (a, s) { return a.concat(s.p || []); }, []))
+          .filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
+        if (txt.length > 40) {
+          if (txt.length > 500) { txt = txt.slice(0, 500); txt = txt.slice(0, txt.lastIndexOf(' ')) + '…'; }
+          ldNode.description = (p.s && txt.toLowerCase().indexOf(p.s.toLowerCase()) < 0 ? p.s + '. ' : '') + txt;
+          setLd(ldGraph);
+        }
+      } catch (e) { }   // never let structured data blank the visible details
     })
     .catch(function () { $('#details').innerHTML = ''; });
 

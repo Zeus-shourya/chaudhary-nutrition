@@ -43,7 +43,13 @@ powershell -ExecutionPolicy Bypass -File tools\build-data.ps1          # pull pr
 powershell -ExecutionPolicy Bypass -File tools\process-images.ps1      # download + re-edit every product photo
 powershell -ExecutionPolicy Bypass -File tools\build-data.ps1 -NoFetch # merge photo metadata into catalog.js
 powershell -ExecutionPolicy Bypass -File tools\brand-images.ps1        # logo, portraits, certificates
+powershell -ExecutionPolicy Bypass -File tools\build-sitemap.ps1       # sitemap.xml only (build-data runs it too; offline)
 ```
+
+**SEO:** every page's `<head>` carries its canonical, Open Graph tags and JSON-LD; `product.js` sets title, description,
+canonical, OG tags and Product JSON-LD per product, and `shop.js` adds the catalogue ItemList. The canonical base is
+`siteUrl` in `config.js` — if the site moves to its own domain, update it, the static `<head>` URLs and `robots.txt`,
+then run `build-sitemap.ps1 -BaseUrl https://new-domain/`.
 
 Photo editing (`imgfx.cs`): studio shots are detected automatically, their backdrop is relit onto the
 site's blush tile (`#F7EDEB → #F1E2DF`) with white packaging protected, every product is reframed to the

@@ -2,6 +2,7 @@
    Business details are taken from chaudharynutrition.com (contact page, footer, about page). */
 window.CN_CONFIG = {
   store: 'https://chaudharynutrition.com',          // live Shopify store: checkout + policy pages
+  siteUrl: 'https://zeus-shourya.github.io/chaudhary-nutrition/',   // published redesign: canonical URLs + structured data
   phone: '+91 95885 09279',
   whatsapp: '919588509279',
   email: 'chaudharynutrition1@gmail.com',

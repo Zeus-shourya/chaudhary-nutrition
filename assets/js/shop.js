@@ -2,6 +2,7 @@
 (function () {
   var N = window.CN, C = N.C, P = N.P, $ = N.$;
   var PAGE = 24;
+  var baseTitle = document.title;   // the page's own <title> is the unfiltered shop's SEO title
   var params = new URLSearchParams(window.CN_QS != null ? window.CN_QS : location.search);   // CN_QS: phone bundle router
   var state = {
     c: params.get('c') || '',
@@ -56,14 +57,14 @@
     } else if (state.kits) {
       title = 'Kits &amp; <em>combos</em>'; blurb = 'Complete routines, bundled and priced below buying each formula on its own.';
     } else {
-      title = 'The <em>shop</em>'; blurb = 'Every formula, every herb named on the label. Filter by concern, or search for an ingredient you trust.';
+      title = 'The <em>shop</em>'; blurb = 'Herbal supplements and Ayurvedic wellness products, every herb named on the label. Filter by concern, or search for an ingredient you trust.';
     }
     $('#shopTitle').innerHTML = title; $('#shopBlurb').innerHTML = blurb;
     art = cat ? cat : (state.kits ? { ill: 'cat-kits', bg: '#F7E2E3', fg: '#990D35', accent: '#EBA6A9' } : { ill: 'deco-mortar', bg: '#0E103D', fg: '#EBA6A9', accent: '#990D35' });
     $('#shopArt').innerHTML = N.ill(art.ill, '', 'background:' + art.bg + ';color:' + art.fg + ';--ill-accent:' + (art.accent === art.bg ? 'transparent' : art.accent + '44') + ';--ill-sw:2');
     $('#crumb').textContent = cat ? cat.name : state.kits ? 'Kits & Combos' : state.q ? 'Search' : '';
     $('#crumbSep').hidden = !$('#crumb').textContent;
-    document.title = (cat ? cat.name : state.kits ? 'Kits & Combos' : state.q ? 'Search: ' + state.q : 'Shop all formulas') + ' — Chaudhary Nutrition';
+    document.title = cat || state.kits || state.q ? (cat ? cat.name : state.kits ? 'Kits & Combos' : 'Search: ' + state.q) + ' — Chaudhary Nutrition' : baseTitle;
     N.$$('#chips .chip-f').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-c') === state.c ? 'true' : 'false'); });
   }
 
@@ -107,4 +108,16 @@
 
   render();
   var active = $('#chips [aria-pressed="true"]'); if (active && active.scrollIntoView) active.scrollIntoView({ block: 'nearest', inline: 'center' });
+
+  // structured data: the full catalogue as an ItemList (live site only - the phone bundle sets CN_QS)
+  if (window.CN_QS == null && C.siteUrl && !document.getElementById('ld-shop-list')) {
+    var ld = document.createElement('script');
+    ld.type = 'application/ld+json'; ld.id = 'ld-shop-list';
+    ld.textContent = JSON.stringify({
+      '@context': 'https://schema.org', '@type': 'ItemList', '@id': C.siteUrl + 'shop.html#products',
+      name: 'Herbal supplements and Ayurvedic wellness products', numberOfItems: P.length,
+      itemListElement: P.map(function (p, i) { return { '@type': 'ListItem', position: i + 1, url: C.siteUrl + 'product.html?p=' + p.id, name: p.n }; })
+    });
+    document.head.appendChild(ld);
+  }
 })();

@@ -59,7 +59,7 @@
   function render() {
     var html = '';
     var head = function (q, hint, art) {
-      return '<div class="finder__head"><div><h1 class="finder__q">' + q + '</h1><p class="finder__hint">' + hint + '</p></div>' +
+      return '<div class="finder__head"><div><h2 class="finder__q">' + q + '</h2><p class="finder__hint">' + hint + '</p></div>' +
         '<div class="finder__art" aria-hidden="true">' + N.ill(art) + '</div></div>';
     };
     if (st.step === 0) {
@@ -101,7 +101,7 @@
     var labels = st.concerns.map(function (k) { return CONCERNS[k].label; });
     var msg = 'Hi! I used the Wellness Finder.\nFor: ' + who.label.replace('For me — ', '') + '\nLooking for help with: ' + labels.join(', ') + '\nCould you suggest the right formula and dosage for me?';
     return progress(3) +
-      '<div class="result-head"><h1 class="finder__q">Your <em>shortlist</em></h1>' +
+      '<div class="result-head"><h2 class="finder__q">Your <em>shortlist</em></h2>' +
       '<div class="result-sum"><span>' + esc(who.label) + '</span>' + labels.map(function (l) { return '<span>' + esc(l) + '</span>'; }).join('') + '<span>' + esc(FORMAT.find(function (f) { return f.k === st.format; }).label) + '</span></div>' +
       '<p class="lead">' + (top.length ? picks.length + ' formula' + (picks.length > 1 ? 's' : '') + ' match — here are the best ' + top.length + '.' : 'No exact match for that combination yet — our team can still guide you.') + '</p></div>' +
       (top.length ? '<div class="pgrid">' + top.map(function (p, i) { return N.card(p, { delay: (i % 4) * 0.05 }); }).join('') + '</div>' : '') +

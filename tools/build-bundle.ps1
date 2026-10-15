@@ -168,11 +168,11 @@ $catalogBundle = $catJs + "`nCN_CATALOG.products.forEach(function (p) { p.i = 1;
 $sb = New-Object System.Text.StringBuilder
 [void]$sb.Append(@"
 <!doctype html>
-<html lang="en">
+<html lang="en-IN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
 <title>Chaudhary Nutrition — redesign preview</title>
 <meta name="theme-color" content="#F8FFF4">
 <link rel="icon" type="image/png" href="$favicon">

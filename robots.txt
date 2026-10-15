@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /chaudhary-nutrition/dist/
+Disallow: /chaudhary-nutrition/tools/
+
+Sitemap: https://zeus-shourya.github.io/chaudhary-nutrition/sitemap.xml
